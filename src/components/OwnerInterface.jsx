@@ -8,7 +8,7 @@ function OwnerInterface() {
   const [successMessage, setSuccessMessage] = useState('');
   const [clientLink, setClientLink] = useState('');
 
-  const API_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzGlIbr7tsxIXNqHWVpH3Jfr-HeGUB5FgtBzcmZZQc36yYCBP_WBPxbHs92NlFY3hJZ/exec';
+  const API_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyjrQKzvUsbdnde37E-Sml664oZdtXwlQk3dS4uj7imzzarCyW3B2eaoBCQ7Cd9_1-7/exec';
 
   // Format date to "Month Name, Day of Week, Year" (e.g., "March 21, Thursday, 2025")
   const formatDate = (dateString) => {
@@ -138,11 +138,26 @@ const fetchSlots = async () => {
   // Format time to 12-hour format with AM/PM
   const formatTime = (timeString) => {
     if (!timeString) return '';
-    const [hours, minutes] = timeString.split(':');
-    const hour = parseInt(hours, 10);
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const formattedHour = hour % 12 || 12;
-    return `${formattedHour}:${minutes} ${ampm}`;
+    // The timeString will now be "HH:mm" directly from Google Apps Script.
+    // We can parse it into a Date object (using a dummy date) to use toLocaleTimeString
+    // or manually format it. Using a dummy date is often easier for locale-specific formatting.
+    try {
+      // Create a dummy date object to apply the time to, so toLocaleTimeString works correctly.
+      // Use a consistent date, e.g., today's date (July 15, 2025 in your current context)
+      // to avoid issues with different interpretations of "00:00" on certain dates.
+      const [hours, minutes] = timeString.split(':');
+      const dummyDate = new Date(2000, 0, 1, parseInt(hours, 10), parseInt(minutes, 10)); // Year, Month (0-indexed), Day, Hour, Minute
+
+      const options = {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true, // For AM/PM
+      };
+      return dummyDate.toLocaleTimeString('en-US', options);
+    } catch (e) {
+      console.error("Error formatting time:", e);
+      return timeString; // Fallback to original string if formatting fails
+    }
   };
 
   return (
