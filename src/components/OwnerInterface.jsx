@@ -9,7 +9,7 @@ function OwnerInterface() {
   const [clientLink, setClientLink] = useState('');
 
   const API_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyjrQKzvUsbdnde37E-Sml664oZdtXwlQk3dS4uj7imzzarCyW3B2eaoBCQ7Cd9_1-7/exec';
-
+  const endpoint= '1221Czt7p3i1K9mnNG_tBFoU0X09U1b8zmS2oW1kBQZQ';
   // Format date to "Month Name, Day of Week, Year" (e.g., "March 21, Thursday, 2025")
   const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -29,7 +29,7 @@ function OwnerInterface() {
     // that also uses the same Google Apps Script API_ENDPOINT, but tailored for clients.
     // For now, let's just make it a placeholder or point to your deployed client app.
     // If your client app needs the API_ENDPOINT as a parameter, you'd pass it here.
-    setClientLink(`https://your-client-app.vercel.app/?api=${encodeURIComponent(API_ENDPOINT)}`);
+    setClientLink(`https://tinting-booking-client.vercel.app/${endpoint}`);
   }, []);
 
   // Fetch slots from Google Apps Script
