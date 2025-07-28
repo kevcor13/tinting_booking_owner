@@ -25,3 +25,7 @@ customers can book appointments.
 2. The app makes a `POST` request to a [Google Apps Script Web App](https://script.google.com/).
 3. The Google Script updates the connected Google Sheet.
 4. The client page auto-updates via real-time syncing.
+
+
+<img width="811" height="871" alt="image" src="https://github.com/user-attachments/assets/88a8fdff-e3e5-42b1-a06d-1bff98c79c35" />
+
